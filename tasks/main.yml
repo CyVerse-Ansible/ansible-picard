@@ -1,0 +1,24 @@
+---
+
+- name: Gather OS specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
+    - "{{ ansible_distribution }}.yml"
+
+- name: Install Java
+  package:
+    name: "{{ JAVA }}"
+    state: present
+
+- name: Download Picard
+  get_url:
+    url: "https://github.com/broadinstitute/picard/releases/download/{{ VERSION }}/picard.jar"
+    dest: "/home/{{ ATMOUSERNAME }}/picard.jar"
+
+- name: Add small readme
+  lineinfile:
+    state: present
+    create: yes
+    path: "/home/{{ ATMOUSERNAME }}/GenomeAnalysisTK-README.txt"
+    line: "To get info on how to use the program, type 'java -jar /path/to/picard.jar -h'"
