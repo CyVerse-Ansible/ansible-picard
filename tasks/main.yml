@@ -20,5 +20,5 @@
   lineinfile:
     state: present
     create: yes
-    path: "/home/{{ ATMOUSERNAME }}/GenomeAnalysisTK-README.txt"
+    path: "/home/{{ ATMOUSERNAME }}/picard-README.txt"
     line: "To get info on how to use the program, type 'java -jar /path/to/picard.jar -h'"
